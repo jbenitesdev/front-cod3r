@@ -1,5 +1,6 @@
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry:'./src/index.jsx',
@@ -19,7 +20,13 @@ module.exports = {
         
     },
     plugins: [
-        new ExtractTextPlugin('app.css')
+        new ExtractTextPlugin('app.css'),
+        new HtmlWebpackPlugin({
+            inject: true,
+            template: './public/index.html',
+            filename: './index.html',
+            favicon: './public/favicon.ico'
+          })
     ],
     module: {
         loaders: [{
@@ -36,7 +43,10 @@ module.exports = {
         },{
             test: /\.woff|.woff2|.ttf|.eot|.svg*.*$/,
             loader: 'file'
-        }
+        },{
+            test: /\.json$/,
+            loader: 'json-loader'
+          }
     ]
     } 
 
